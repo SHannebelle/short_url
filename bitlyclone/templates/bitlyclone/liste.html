@@ -1,0 +1,17 @@
+<h1>URL Shortener</h1>
+
+<p><a href="{% url 'url_new' %}">  Click here to shorten a new URL</a></p>
+
+<p>List of Shortened URLs: </p>
+<ul>
+    {% for shorturl in shorturl_list %}
+    <li>{{shorturl.url}} => <a href="http://{{ request.get_host}}{% url 'url_redirection' shorturl.code %}">{{ request.get_host}}{% url 'url_redirection' shorturl.code %}</a>
+        {% if shorturl.username %} shortened by {{shorturl.username}}{% endif %} ( Used {{ shorturl.nb_access }}
+        {% if shorturl.nb_access < 2 %} time {% else %} times  {% endif %} )
+    </li>
+    {% empty %}
+    <li>No Shortened URL yet</li>
+    {% endfor %}
+</ul>
+
+
